@@ -1,0 +1,26 @@
+{
+  "name": "lasq",
+  "productName": "Lasq",
+  "version": "0.1.0",
+  "description": "Lasq (لصق) — clipboard history, snippets and text expansion for Windows. Offline, Arabic and English.",
+  "author": "Prof. Hani Muhsen <haymohsen@gmail.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test \"test/*.test.js\"",
+    "check": "node --check src/main/main.js && node --check src/preload.js",
+    "dist": "electron-builder --win appx --x64 --arm64",
+    "dist:x64": "electron-builder --win appx --x64",
+    "dist:exe": "electron-builder --win nsis --x64"
+  },
+  "dependencies": {
+    "koffi": "^3.3.2",
+    "uiohook-napi": "^1.5.5"
+  },
+  "devDependencies": {
+    "electron": "^39.0.0",
+    "electron-builder": "^26.0.0"
+  }
+}

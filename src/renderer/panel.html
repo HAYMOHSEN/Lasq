@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Lasq</title>
+  <link rel="stylesheet" href="ui/common.css">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <!-- Inline SVG symbol library (referenced with <use href="#…">) -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></symbol>
+    <symbol id="i-text" viewBox="0 0 16 16"><path d="M3 3.5h10M3 8h10M3 12.5h6"/></symbol>
+    <symbol id="i-image" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="1.5"/><circle cx="6" cy="6.5" r="1.2"/><path d="M14 11 10.5 7.5 5 13"/></symbol>
+    <symbol id="i-files" viewBox="0 0 16 16"><path d="M2.5 4.5A1.5 1.5 0 0 1 4 3h2.5l1.5 1.5H12A1.5 1.5 0 0 1 13.5 6v6A1.5 1.5 0 0 1 12 13.5H4A1.5 1.5 0 0 1 2.5 12z"/></symbol>
+    <symbol id="i-snippet" viewBox="0 0 16 16"><path d="M5.5 3.5 2.5 8l3 4.5M10.5 3.5l3 4.5-3 4.5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 16 16"><path d="M9.5 2.5 13.5 6.5 11 7.5 8.5 10 8 13.5 2.5 8 6 7.5 8.5 5z"/><path d="M5.5 10.5 2.5 13.5"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 16 16"><path d="M3 4.5h10M6.5 4.5v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1M4.5 4.5l.6 8a1 1 0 0 0 1 .9h3.8a1 1 0 0 0 1-.9l.6-8"/></symbol>
+    <symbol id="i-wand" viewBox="0 0 16 16"><path d="M3 13 10 6M9 3v1.5M12.5 6.5H14M11.5 4.5l1-1M11.5 8.5l1 1"/></symbol>
+    <symbol id="i-note" viewBox="0 0 16 16"><path d="M4 2.5h6l3 3V13a.5.5 0 0 1-.5.5h-8.5A.5.5 0 0 1 3.5 13V3a.5.5 0 0 1 .5-.5z"/><path d="M10 2.5v3h3M6 8.5h4M6 11h3"/></symbol>
+    <symbol id="i-empty" viewBox="0 0 16 16"><rect x="2.5" y="2.5" width="11" height="11" rx="2"/><path d="M5.5 8h5"/></symbol>
+  </svg>
+
+  <div class="panel" id="panel" data-mode="paste">
+
+    <!-- Search -->
+    <header class="panel-search">
+      <svg class="icon search-icon" aria-hidden="true"><use href="#i-search"/></svg>
+      <input id="search" class="search-input" type="text" autocomplete="off" spellcheck="false"
+             data-i18n-placeholder="search.placeholder" data-i18n-aria-label="aria.search"
+             role="combobox" aria-expanded="true" aria-controls="results" aria-autocomplete="list" aria-haspopup="listbox">
+    </header>
+
+    <!-- Tabs -->
+    <nav class="panel-tabs" role="tablist" data-i18n-aria-label="aria.tabs" id="tabs">
+      <button class="tab" role="tab" data-tab="history" aria-selected="true" tabindex="-1" data-i18n="tab.history">History</button>
+      <button class="tab" role="tab" data-tab="pinned" aria-selected="false" tabindex="-1" data-i18n="tab.pinned">Pinned</button>
+      <button class="tab" role="tab" data-tab="snippets" aria-selected="false" tabindex="-1" data-i18n="tab.snippets">Snippets</button>
+    </nav>
+
+    <!-- Main: results + preview (paste mode) -->
+    <main class="panel-main" id="main-paste">
+      <ul class="results" id="results" role="listbox" data-i18n-aria-label="aria.results" tabindex="-1"></ul>
+      <aside class="preview" id="preview" data-i18n-aria-label="aria.preview" aria-live="polite">
+        <div class="preview-empty empty" id="preview-empty">
+          <svg class="icon" aria-hidden="true"><use href="#i-empty"/></svg>
+          <span data-i18n="empty.select">Select an item to see it here.</span>
+        </div>
+        <div class="preview-body hidden" id="preview-body">
+          <div class="preview-content" id="preview-content"></div>
+          <div class="preview-meta caption" id="preview-meta"></div>
+          <div class="preview-actions">
+            <button class="btn-icon" id="btn-pin" type="button" data-i18n-title="action.pin" data-i18n-aria-label="action.pin" tabindex="-1">
+              <svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>
+            </button>
+            <button class="btn-icon btn-danger" id="btn-delete" type="button" data-i18n-title="action.delete" data-i18n-aria-label="action.delete" tabindex="-1">
+              <svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg>
+            </button>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Capture mode -->
+    <section class="panel-capture hidden" id="main-capture" aria-labelledby="capture-label">
+      <label class="mode-title" id="capture-label" for="capture-text" data-i18n="capture.title">Quick note</label>
+      <textarea id="capture-text" class="textarea capture-text" rows="8" data-i18n-placeholder="capture.placeholder"></textarea>
+    </section>
+
+    <!-- Form mode -->
+    <section class="panel-form hidden" id="main-form" aria-labelledby="form-title">
+      <h2 class="mode-title" id="form-title"></h2>
+      <form id="form-fields" class="form-fields" autocomplete="off" novalidate></form>
+    </section>
+
+    <!-- Footer legend -->
+    <footer class="panel-footer caption" id="legend" data-i18n="legend.paste"></footer>
+
+    <!-- Transform picker overlay -->
+    <div class="overlay hidden" id="transform-overlay" role="dialog" aria-modal="true" aria-labelledby="transform-title">
+      <div class="transform-picker card">
+        <div class="transform-head">
+          <svg class="icon" aria-hidden="true"><use href="#i-wand"/></svg>
+          <h2 id="transform-title" data-i18n="transform.title">Paste with transform</h2>
+        </div>
+        <input id="transform-filter" class="input input-sm" type="text" autocomplete="off" spellcheck="false"
+               data-i18n-placeholder="search.transforms" role="combobox" aria-expanded="true" aria-controls="transform-list" aria-autocomplete="list">
+        <ul id="transform-list" class="transform-list" role="listbox" tabindex="-1"></ul>
+        <div class="transform-foot caption text-2" data-i18n="legend.transform"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="ui/i18n.js"></script>
+  <script src="ui/mock.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>

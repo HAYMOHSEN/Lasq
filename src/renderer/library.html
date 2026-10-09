@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Lasq – Library</title>
+  <link rel="stylesheet" href="ui/common.css">
+  <link rel="stylesheet" href="library.css">
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></symbol>
+    <symbol id="i-history" viewBox="0 0 16 16"><path d="M2.5 8a5.5 5.5 0 1 0 1.6-3.9M2.5 2.5v2.6h2.6M8 5v3.2l2.2 1.3"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 16 16"><path d="M9.5 2.5 13.5 6.5 11 7.5 8.5 10 8 13.5 2.5 8 6 7.5 8.5 5z"/><path d="M5.5 10.5 2.5 13.5"/></symbol>
+    <symbol id="i-snippet" viewBox="0 0 16 16"><path d="M5.5 3.5 2.5 8l3 4.5M10.5 3.5l3 4.5-3 4.5"/></symbol>
+    <symbol id="i-note" viewBox="0 0 16 16"><path d="M4 2.5h6l3 3V13a.5.5 0 0 1-.5.5h-8.5A.5.5 0 0 1 3.5 13V3a.5.5 0 0 1 .5-.5z"/><path d="M10 2.5v3h3M6 8.5h4M6 11h3"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2"/><path d="M8 1.8 9.2 3.3l1.9-.5.5 1.9 1.6 1.2-.9 1.7.9 1.7-1.6 1.2-.5 1.9-1.9-.5L8 14.2 6.8 12.7l-1.9.5-.5-1.9-1.6-1.2.9-1.7-.9-1.7 1.6-1.2.5-1.9 1.9.5z"/></symbol>
+    <symbol id="i-text" viewBox="0 0 16 16"><path d="M3 3.5h10M3 8h10M3 12.5h6"/></symbol>
+    <symbol id="i-image" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="1.5"/><circle cx="6" cy="6.5" r="1.2"/><path d="M14 11 10.5 7.5 5 13"/></symbol>
+    <symbol id="i-files" viewBox="0 0 16 16"><path d="M2.5 4.5A1.5 1.5 0 0 1 4 3h2.5l1.5 1.5H12A1.5 1.5 0 0 1 13.5 6v6A1.5 1.5 0 0 1 12 13.5H4A1.5 1.5 0 0 1 2.5 12z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 16 16"><path d="M3 4.5h10M6.5 4.5v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1M4.5 4.5l.6 8a1 1 0 0 0 1 .9h3.8a1 1 0 0 0 1-.9l.6-8"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 5.5v-2A1 1 0 0 0 9.5 2.5h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></symbol>
+    <symbol id="i-empty" viewBox="0 0 16 16"><rect x="2.5" y="2.5" width="11" height="11" rx="2"/><path d="M5.5 8h5"/></symbol>
+  </svg>
+
+  <div class="library" id="library">
+
+    <!-- ===== Sidebar ===== -->
+    <nav class="sidebar" data-i18n-aria-label="nav.sections">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <span class="brand-name">Lasq</span>
+        <span class="brand-ar" lang="ar" dir="rtl">لصق</span>
+      </div>
+      <ul class="nav" id="nav">
+        <li><button class="nav-item" data-section="history" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-history"/></svg><span data-i18n="nav.history">History</span></button></li>
+        <li><button class="nav-item" data-section="pinned"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg><span data-i18n="nav.pinned">Pinned</span></button></li>
+        <li><button class="nav-item" data-section="snippets"><svg class="icon" aria-hidden="true"><use href="#i-snippet"/></svg><span data-i18n="nav.snippets">Snippets</span></button></li>
+        <li><button class="nav-item" data-section="notes"><svg class="icon" aria-hidden="true"><use href="#i-note"/></svg><span data-i18n="nav.notes">Notes</span></button></li>
+        <li class="nav-gap"></li>
+        <li><button class="nav-item" data-section="settings"><svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg><span data-i18n="nav.settings">Settings</span></button></li>
+      </ul>
+      <div class="lang-toggle" role="group" data-i18n-aria-label="aria.langToggle" id="lang-toggle">
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" class="lang-btn" data-lang="ar" aria-pressed="false" lang="ar">عربي</button>
+      </div>
+    </nav>
+
+    <!-- ===== Middle list pane ===== -->
+    <section class="list-pane" id="list-pane" data-i18n-aria-label="aria.list">
+      <div class="list-head">
+        <div class="list-search">
+          <svg class="icon search-icon" aria-hidden="true"><use href="#i-search"/></svg>
+          <input id="list-search" class="input" type="search" autocomplete="off" spellcheck="false" data-i18n-placeholder="search.history" data-i18n-aria-label="aria.search">
+        </div>
+        <div class="list-filters chips" id="list-filters"></div>
+      </div>
+      <ul class="list" id="list" role="listbox" tabindex="0"></ul>
+    </section>
+
+    <!-- ===== Detail pane ===== -->
+    <section class="detail-pane" id="detail-pane" data-i18n-aria-label="aria.detail">
+
+      <!-- Placeholder when nothing is selected -->
+      <div class="detail-empty empty" id="detail-empty">
+        <svg class="icon" aria-hidden="true"><use href="#i-empty"/></svg>
+        <span id="detail-empty-text" data-i18n="empty.select">Select an item to see it here.</span>
+      </div>
+
+      <!-- History / pinned item -->
+      <article class="detail hidden" id="detail-history">
+        <header class="detail-head">
+          <h1 class="detail-title truncate" id="h-title"></h1>
+          <div class="detail-actions">
+            <button type="button" class="btn" id="h-copy"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span data-i18n="action.copy">Copy</span></button>
+            <button type="button" class="btn" id="h-pin" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg><span id="h-pin-label" data-i18n="action.pin">Pin</span></button>
+            <button type="button" class="btn btn-danger" id="h-delete"><svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg><span data-i18n="action.delete">Delete</span></button>
+          </div>
+        </header>
+        <div class="detail-meta caption" id="h-meta"></div>
+        <div class="detail-content card" id="h-content"></div>
+      </article>
+
+      <!-- Snippet editor -->
+      <form class="detail hidden snippet-editor" id="detail-snippet" autocomplete="off" novalidate>
+        <header class="detail-head">
+          <h1 class="detail-title truncate" id="s-title" data-i18n="snippet.new">New snippet</h1>
+          <div class="detail-actions">
+            <button type="button" class="btn" id="s-test"><span data-i18n="action.test">Test it</span></button>
+            <button type="button" class="btn btn-danger" id="s-delete"><svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg><span data-i18n="action.delete">Delete</span></button>
+            <button type="submit" class="btn btn-primary" id="s-save"><span data-i18n="action.save">Save</span></button>
+          </div>
+        </header>
+        <div class="editor-scroll">
+          <div class="form-grid">
+            <div class="field">
+              <label for="s-name" data-i18n="snippet.name">Name</label>
+              <input id="s-name" class="input" type="text" data-i18n-placeholder="snippet.namePlaceholder" required>
+              <div class="field-error hidden" id="s-name-error" data-i18n="snippet.nameRequired"></div>
+            </div>
+            <div class="field">
+              <label for="s-trigger" data-i18n="snippet.trigger">Trigger</label>
+              <input id="s-trigger" class="input input-mono" type="text" dir="auto" data-i18n-placeholder="snippet.triggerPlaceholder">
+              <div class="field-warning hidden" id="s-trigger-warning" data-i18n="snippet.triggerEmpty"></div>
+              <div class="field-error hidden" id="s-trigger-error" data-i18n="snippet.triggerTaken"></div>
+            </div>
+            <div class="field">
+              <label for="s-folder" data-i18n="snippet.folder">Folder</label>
+              <input id="s-folder" class="input" type="text" list="folder-list" data-i18n-placeholder="snippet.folderPlaceholder">
+              <datalist id="folder-list"></datalist>
+            </div>
+          </div>
+
+          <div class="body-tabs" role="tablist">
+            <button type="button" class="body-tab" role="tab" data-body="en" aria-selected="true" aria-controls="s-body-en-panel" id="tab-body-en" data-i18n="snippet.bodyEn">English body</button>
+            <button type="button" class="body-tab" role="tab" data-body="ar" aria-selected="false" aria-controls="s-body-ar-panel" id="tab-body-ar" data-i18n="snippet.bodyAr">Arabic body</button>
+          </div>
+
+          <div class="placeholder-bar" id="placeholder-bar" role="toolbar" data-i18n-aria-label="snippet.placeholders">
+            <span class="caption text-3" data-i18n="snippet.placeholders">Placeholders</span>
+            <button type="button" class="chip" data-insert="{{date}}"><span data-i18n="ph.date">Date</span> <code>{{date}}</code></button>
+            <button type="button" class="chip" data-insert="{{time}}"><span data-i18n="ph.time">Time</span> <code>{{time}}</code></button>
+            <button type="button" class="chip" data-insert="{{clipboard}}"><span data-i18n="ph.clipboard">Clipboard</span> <code>{{clipboard}}</code></button>
+            <button type="button" class="chip" data-insert="{{cursor}}"><span data-i18n="ph.cursor">Cursor</span> <code>{{cursor}}</code></button>
+            <button type="button" class="chip" data-insert="{{field:Name}}"><span data-i18n="ph.field">Field</span> <code>{{field:Name}}</code></button>
+            <button type="button" class="chip" data-insert="{{choice:A|B}}"><span data-i18n="ph.choice">Choice</span> <code>{{choice:A|B}}</code></button>
+          </div>
+
+          <div class="body-panel" id="s-body-en-panel" role="tabpanel" aria-labelledby="tab-body-en">
+            <textarea id="s-body-en" class="textarea body-text" rows="10" dir="ltr" lang="en" data-i18n-placeholder="snippet.bodyPlaceholder"></textarea>
+          </div>
+          <div class="body-panel hidden" id="s-body-ar-panel" role="tabpanel" aria-labelledby="tab-body-ar">
+            <textarea id="s-body-ar" class="textarea body-text" rows="10" dir="rtl" lang="ar" data-i18n-placeholder="snippet.bodyPlaceholder"></textarea>
+            <div class="field-hint" data-i18n="snippet.bodyArHint"></div>
+          </div>
+
+          <div class="field">
+            <div class="caption text-2" data-i18n="snippet.preview">Preview</div>
+            <div class="snippet-preview card" id="s-preview"></div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="s-allow" data-i18n="snippet.appsAllow">Allowed apps</label>
+              <input id="s-allow" class="input input-mono" type="text" dir="ltr" placeholder="outlook.exe, winword.exe">
+            </div>
+            <div class="field">
+              <label for="s-deny" data-i18n="snippet.appsDeny">Denied apps</label>
+              <input id="s-deny" class="input input-mono" type="text" dir="ltr" placeholder="code.exe">
+            </div>
+          </div>
+          <div class="field-hint" data-i18n="snippet.appsHint"></div>
+          <div class="field-error hidden" id="s-error"></div>
+          <div class="caption text-3" id="s-meta"></div>
+        </div>
+      </form>
+
+      <!-- Note -->
+      <article class="detail hidden" id="detail-note">
+        <header class="detail-head">
+          <h1 class="detail-title" id="n-title" data-i18n="nav.notes">Notes</h1>
+          <div class="detail-actions">
+            <button type="button" class="btn" id="n-copy"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span data-i18n="action.copy">Copy</span></button>
+            <button type="button" class="btn btn-primary" id="n-make"><svg class="icon" aria-hidden="true"><use href="#i-snippet"/></svg><span data-i18n="action.makeSnippet">Make snippet</span></button>
+            <button type="button" class="btn btn-danger" id="n-delete"><svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg><span data-i18n="action.delete">Delete</span></button>
+          </div>
+        </header>
+        <div class="detail-meta caption" id="n-meta"></div>
+        <div class="detail-content card" id="n-content"></div>
+      </article>
+
+      <!-- Settings -->
+      <form class="detail hidden settings" id="detail-settings" autocomplete="off" novalidate>
+        <header class="detail-head">
+          <h1 class="detail-title" data-i18n="settings.title">Settings</h1>
+        </header>
+        <div class="editor-scroll settings-scroll">
+
+          <section class="card settings-card">
+            <h2 data-i18n="settings.hotkeys">Hotkeys</h2>
+            <p class="field-hint" data-i18n="settings.hotkeys.hint"></p>
+            <div class="form-grid">
+              <div class="field"><label for="st-hk-panel" data-i18n="settings.hotkeys.panel"></label><input id="st-hk-panel" class="input input-mono" type="text" dir="ltr" data-path="hotkeys.panel"></div>
+              <div class="field"><label for="st-hk-pastePlain" data-i18n="settings.hotkeys.pastePlain"></label><input id="st-hk-pastePlain" class="input input-mono" type="text" dir="ltr" data-path="hotkeys.pastePlain"></div>
+              <div class="field"><label for="st-hk-capture" data-i18n="settings.hotkeys.capture"></label><input id="st-hk-capture" class="input input-mono" type="text" dir="ltr" data-path="hotkeys.capture"></div>
+              <div class="field"><label for="st-hk-pause" data-i18n="settings.hotkeys.pause"></label><input id="st-hk-pause" class="input input-mono" type="text" dir="ltr" data-path="hotkeys.pause"></div>
+              <div class="field"><label for="st-hk-library" data-i18n="settings.hotkeys.library"></label><input id="st-hk-library" class="input input-mono" type="text" dir="ltr" data-path="hotkeys.library"></div>
+            </div>
+          </section>
+
+          <section class="card settings-card">
+            <h2 data-i18n="settings.capture">Capture</h2>
+            <div class="check-row"><label><input type="checkbox" data-path="capture.text"> <span data-i18n="settings.capture.text"></span></label></div>
+            <div class="check-row"><label><input type="checkbox" data-path="capture.images"> <span data-i18n="settings.capture.images"></span></label></div>
+            <div class="check-row"><label><input type="checkbox" data-path="capture.files"> <span data-i18n="settings.capture.files"></span></label></div>
+            <div class="form-grid">
+              <div class="field"><label for="st-maxTextKB" data-i18n="settings.capture.maxTextKB"></label><input id="st-maxTextKB" class="input input-num" type="number" min="1" step="1" data-path="capture.maxTextKB" data-type="number"></div>
+              <div class="field"><label for="st-maxImageMB" data-i18n="settings.capture.maxImageMB"></label><input id="st-maxImageMB" class="input input-num" type="number" min="1" step="1" data-path="capture.maxImageMB" data-type="number"></div>
+              <div class="field"><label for="st-retentionDays" data-i18n="settings.capture.retentionDays"></label><input id="st-retentionDays" class="input input-num" type="number" min="1" step="1" data-path="capture.retentionDays" data-type="number"></div>
+              <div class="field"><label for="st-maxItems" data-i18n="settings.capture.maxItems"></label><input id="st-maxItems" class="input input-num" type="number" min="10" step="10" data-path="capture.maxItems" data-type="number"></div>
+            </div>
+            <div class="field">
+              <label for="st-capture-excluded" data-i18n="settings.capture.excludedApps"></label>
+              <textarea id="st-capture-excluded" class="textarea input-mono" rows="3" dir="ltr" data-path="capture.excludedApps" data-type="lines"></textarea>
+              <div class="field-hint" data-i18n="settings.excludedApps.hint"></div>
+            </div>
+          </section>
+
+          <section class="card settings-card">
+            <h2 data-i18n="settings.expansion">Expansion</h2>
+            <div class="check-row"><label><input type="checkbox" data-path="expansion.enabled"> <span data-i18n="settings.expansion.enabled"></span></label></div>
+            <div class="check-row"><label><input type="checkbox" data-path="expansion.wordBoundary"> <span data-i18n="settings.expansion.wordBoundary"></span></label></div>
+            <div class="check-row"><label><input type="checkbox" data-path="expansion.matchCase"> <span data-i18n="settings.expansion.matchCase"></span></label></div>
+            <div class="check-row"><label><input type="checkbox" data-path="expansion.sound"> <span data-i18n="settings.expansion.sound"></span></label></div>
+            <div class="field">
+              <label for="st-expansion-excluded" data-i18n="settings.expansion.excludedApps"></label>
+              <textarea id="st-expansion-excluded" class="textarea input-mono" rows="3" dir="ltr" data-path="expansion.excludedApps" data-type="lines"></textarea>
+              <div class="field-hint" data-i18n="settings.excludedApps.hint"></div>
+            </div>
+            <h3 class="sub-heading" data-i18n="settings.paste">Paste</h3>
+            <div class="check-row"><label><input type="checkbox" data-path="paste.restoreClipboard"> <span data-i18n="settings.paste.restoreClipboard"></span></label></div>
+            <div class="field"><label for="st-restoreMs" data-i18n="settings.paste.restoreClipboardAfterMs"></label><input id="st-restoreMs" class="input input-num" type="number" min="0" step="50" data-path="paste.restoreClipboardAfterMs" data-type="number"></div>
+          </section>
+
+          <section class="card settings-card">
+            <h2 data-i18n="settings.privacy">Privacy</h2>
+            <div class="check-row"><label><input type="checkbox" data-path="privacy.encrypt"> <span data-i18n="settings.privacy.encrypt"></span></label></div>
+            <div class="check-row"><label><input type="checkbox" data-path="privacy.paused"> <span data-i18n="settings.privacy.paused"></span></label></div>
+          </section>
+
+          <section class="card settings-card">
+            <h2 data-i18n="settings.appearance">Appearance &amp; language</h2>
+            <div class="form-grid">
+              <div class="field">
+                <label for="st-theme" data-i18n="settings.theme"></label>
+                <select id="st-theme" class="select" data-path="theme">
+                  <option value="system" data-i18n="settings.theme.system">System</option>
+                  <option value="light" data-i18n="settings.theme.light">Light</option>
+                  <option value="dark" data-i18n="settings.theme.dark">Dark</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="st-lang" data-i18n="settings.lang"></label>
+                <select id="st-lang" class="select" data-path="lang">
+                  <option value="en" data-i18n="settings.lang.en">English</option>
+                  <option value="ar" data-i18n="settings.lang.ar">Arabic</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <section class="card settings-card">
+            <h2 data-i18n="settings.backup">Backup</h2>
+            <p class="field-hint" data-i18n="settings.backup.hint"></p>
+            <div class="row wrap">
+              <button type="button" class="btn" id="st-export"><span data-i18n="action.export">Export</span></button>
+              <button type="button" class="btn" id="st-import"><span data-i18n="action.import">Import</span></button>
+            </div>
+            <div class="row wrap clear-row">
+              <label for="st-clear-days" data-i18n="settings.clearOlder">Clear history older than</label>
+              <input id="st-clear-days" class="input input-num input-sm" type="number" min="0" step="1" value="30">
+              <span data-i18n="settings.days">days</span>
+              <button type="button" class="btn btn-danger" id="st-clear"><span data-i18n="action.clearHistory">Clear history</span></button>
+            </div>
+            <div class="check-row"><label><input type="checkbox" data-path="startup"> <span data-i18n="settings.startup"></span></label></div>
+          </section>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="ui/i18n.js"></script>
+  <script src="ui/mock.js"></script>
+  <script src="library.js"></script>
+</body>
+</html>

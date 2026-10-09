@@ -1,0 +1,58 @@
+# electron-builder configuration for Lasq.
+# Build the Microsoft Store package:   npm run dist        (x64 + ARM64 .appx)
+# Build an installer for testing:      npm run dist:exe    (NSIS .exe, x64)
+# Output goes to the dist/ folder.
+
+appId: com.hanimuhsen.lasq
+productName: Lasq
+copyright: Copyright © 2026 Prof. Hani Muhsen
+
+directories:
+  output: dist
+  buildResources: assets
+
+files:
+  - src/**/*
+  - assets/**/*
+  - package.json
+  - "!**/*.map"
+  - "!**/*.md"
+
+# Both native modules (koffi, uiohook-napi) are N-API modules shipped with prebuilt Windows binaries,
+# so nothing is ever compiled on your PC: no rebuild step, no Visual Studio needed.
+npmRebuild: false
+nodeGypRebuild: false
+buildDependenciesFromSource: false
+
+asar: true
+# The two native modules load their .node binaries from disk, so they must stay outside the asar archive.
+asarUnpack:
+  - "**/node_modules/koffi/**"
+  - "**/node_modules/uiohook-napi/**"
+
+win:
+  icon: assets/icon.ico
+  artifactName: ${productName}-${version}-${arch}.${ext}
+  target:
+    - target: appx
+      arch: [x64, arm64]
+
+# Microsoft Store identity. Replace the three REPLACE values with the ones shown in
+# Partner Center → your app → Product management → Product identity.
+appx:
+  identityName: REPLACE.IdentityName        # e.g. 12345HaniMuhsen.Lasq   (Package/Identity/Name)
+  publisher: CN=REPLACE-PUBLISHER-GUID       # e.g. CN=1A2B3C4D-5E6F-...  (Package/Identity/Publisher)
+  publisherDisplayName: REPLACE Display Name # Package/Properties/PublisherDisplayName
+  applicationId: Lasq
+  displayName: Lasq
+  backgroundColor: "#0067C0"
+  languages: [en-US, ar-SA]
+  addAutoLaunchExtension: true   # declares the Windows startup task (user can switch it off in Settings → Apps → Startup)
+  showNameOnTiles: true
+  setBuildNumber: false
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  installerLanguages: [en_US, ar_SA]

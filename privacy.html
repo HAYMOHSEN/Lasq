@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lasq — Privacy Policy · سياسة الخصوصية</title>
+<meta name="description" content="Privacy policy of Lasq (لصق), the offline clipboard history, snippets and text expansion app for Windows. No data is collected.">
+<style>
+  :root { --bg: #ffffff; --fg: #1b1b1b; --muted: #5c5c5c; --accent: #0067C0; --card: #f3f6fa; --line: #e3e8ee; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #1c1c1c; --fg: #f0f0f0; --muted: #b5b5b5; --accent: #60CDFF; --card: #262a30; --line: #3a3f47; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 "Segoe UI Variable", "Segoe UI", "Noto Naskh Arabic", system-ui, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  header { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+  .logo { width: 44px; height: 44px; border-radius: 10px; background: var(--accent); display: grid; place-items: center; flex: none; }
+  .logo svg { width: 26px; height: 26px; }
+  h1 { font-size: 26px; margin: 0; }
+  h2 { font-size: 20px; margin: 32px 0 8px; }
+  .lang-nav { margin: 16px 0 24px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .lang-nav a { color: var(--accent); text-decoration: none; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; }
+  .summary { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin: 16px 0 8px; }
+  .summary p { margin: 0; }
+  .meta { color: var(--muted); font-size: 14px; }
+  section[dir="rtl"] { text-align: right; }
+  ul { padding-inline-start: 22px; }
+  a { color: var(--accent); }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 48px 0; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="6" y="5" width="12" height="15" rx="2" fill="#fff"/><rect x="9" y="3" width="6" height="4" rx="1" fill="#003c78"/><rect x="8.5" y="10" width="7" height="1.4" rx=".7" fill="#0067C0"/><rect x="8.5" y="13" width="7" height="1.4" rx=".7" fill="#0067C0"/><rect x="8.5" y="16" width="4.5" height="1.4" rx=".7" fill="#0067C0"/></svg>
+    </div>
+    <div>
+      <h1>Lasq (لصق)</h1>
+      <div class="meta">Privacy Policy · سياسة الخصوصية</div>
+    </div>
+  </header>
+
+  <nav class="lang-nav" aria-label="Language">
+    <a href="#en">English</a>
+    <a href="#ar">العربية</a>
+  </nav>
+
+  <section id="en" lang="en" dir="ltr">
+    <div class="summary">
+      <p><strong>In one sentence:</strong> Lasq works entirely on your PC. It never connects to the internet, has no account, and collects no data of any kind.</p>
+    </div>
+    <p class="meta">Effective date: 9 October 2026 · Applies to Lasq for Windows (Microsoft Store and installer versions).</p>
+
+    <h2>What Lasq does with your data</h2>
+    <p>Lasq is a clipboard history, snippets and text-expansion tool. Everything it handles — clipboard contents, snippets, quick notes and settings — is stored only on your computer, in your Windows user profile folder (<code>%APPDATA%\Lasq</code>). Nothing is uploaded, synchronised, shared or analysed outside your PC.</p>
+    <ul>
+      <li><strong>Clipboard history:</strong> text, images and file lists you copy are saved locally so you can paste them again. Items older than the retention period you choose (90 days by default) are deleted automatically; you can delete any item, or all of them, at any time.</li>
+      <li><strong>Snippets and notes:</strong> text you save yourself, stored locally.</li>
+      <li><strong>Optional encryption:</strong> you can switch on encryption in Settings, in which case the stored files are protected with Windows Data Protection (DPAPI) and readable only by your Windows account.</li>
+    </ul>
+
+    <h2>Keyboard and clipboard access</h2>
+    <p>To offer text expansion (typing a short trigger such as <code>;sig</code> and having it replaced by a longer text), Lasq uses a Windows keyboard hook. Keystrokes are processed in memory only to detect triggers; they are <strong>never recorded, stored or transmitted</strong>. Lasq also reads the clipboard to build your history. Both features are visible to you and can be paused or switched off from the tray icon and Settings.</p>
+    <p>Lasq respects the protection flags that password managers put on the clipboard, and it skips apps you add to its exclusion list, so passwords copied from such tools are not saved.</p>
+
+    <h2>What Lasq does not do</h2>
+    <ul>
+      <li>No internet connections, no servers, no cloud sync.</li>
+      <li>No user accounts, no sign-in.</li>
+      <li>No analytics, telemetry, crash reports, advertising or tracking.</li>
+      <li>No third-party services or SDKs that receive data.</li>
+    </ul>
+
+    <h2>Your control</h2>
+    <p>You can view, export, import and delete all Lasq data from the app's Library window (Settings → Backup). Uninstalling the app removes it; the local data folder can be deleted manually if you wish to remove every trace.</p>
+
+    <h2>Children</h2>
+    <p>Lasq is a general productivity tool, is not directed at children, and collects no personal information from anyone.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy ever changes, the new version will be published at this address with a new effective date. Because Lasq collects no data, changes would only ever clarify wording.</p>
+
+    <h2>Contact</h2>
+    <p>Developer: Prof. Hani Muhsen · <a href="mailto:haymohsen@gmail.com">haymohsen@gmail.com</a></p>
+  </section>
+
+  <hr>
+
+  <section id="ar" lang="ar" dir="rtl">
+    <div class="summary">
+      <p><strong>بجملة واحدة:</strong> يعمل «لصق» على جهازك فقط. لا يتصل بالإنترنت أبداً، ولا يحتاج حساباً، ولا يجمع أي بيانات من أي نوع.</p>
+    </div>
+    <p class="meta">تاريخ السريان: 9 تشرين الأول (أكتوبر) 2026 · ينطبق على Lasq لويندوز (نسخة متجر مايكروسوفت ونسخة المثبّت).</p>
+
+    <h2>ماذا يفعل «لصق» ببياناتك</h2>
+    <p>«لصق» أداة لسجل الحافظة والقصاصات والتوسيع النصي. كل ما يتعامل معه — محتوى الحافظة، القصاصات، الملاحظات السريعة، والإعدادات — يُحفظ على جهازك فقط داخل مجلد ملفك الشخصي في ويندوز (<code dir="ltr">%APPDATA%\Lasq</code>). لا يُرفع شيء، ولا يُزامَن، ولا يُشارَك، ولا يُحلَّل خارج جهازك.</p>
+    <ul>
+      <li><strong>سجل الحافظة:</strong> النصوص والصور وقوائم الملفات التي تنسخها تُحفظ محلياً لتتمكن من لصقها مرة أخرى. العناصر الأقدم من مدة الاحتفاظ التي تختارها (90 يوماً افتراضياً) تُحذف تلقائياً، ويمكنك حذف أي عنصر أو كل العناصر في أي وقت.</li>
+      <li><strong>القصاصات والملاحظات:</strong> نصوص تحفظها بنفسك، وتُخزَّن محلياً.</li>
+      <li><strong>تشفير اختياري:</strong> يمكنك تفعيل التشفير من الإعدادات، فتُحمى الملفات المخزنة بحماية بيانات ويندوز (DPAPI) ولا يمكن قراءتها إلا من حساب ويندوز الخاص بك.</li>
+    </ul>
+
+    <h2>الوصول إلى لوحة المفاتيح والحافظة</h2>
+    <p>لتقديم ميزة التوسيع النصي (كتابة اختصار قصير مثل <code dir="ltr">;sig</code> ليُستبدل بنص أطول) يستخدم «لصق» خطّاف لوحة مفاتيح في ويندوز. تُعالَج ضغطات المفاتيح في الذاكرة فقط لاكتشاف الاختصارات، ولا تُسجَّل ولا تُخزَّن ولا تُرسَل أبداً. كما يقرأ «لصق» الحافظة لبناء السجل. الميزتان ظاهرتان لك ويمكن إيقافهما مؤقتاً أو نهائياً من أيقونة شريط المهام ومن الإعدادات.</p>
+    <p>يحترم «لصق» علامات الحماية التي تضعها برامج إدارة كلمات المرور على الحافظة، ويتجاهل التطبيقات التي تضيفها إلى قائمة الاستثناء، فلا تُحفظ كلمات المرور المنسوخة من تلك البرامج.</p>
+
+    <h2>ما لا يفعله «لصق»</h2>
+    <ul>
+      <li>لا اتصال بالإنترنت، ولا خوادم، ولا مزامنة سحابية.</li>
+      <li>لا حسابات مستخدمين، ولا تسجيل دخول.</li>
+      <li>لا تحليلات، ولا قياس عن بُعد، ولا تقارير أعطال، ولا إعلانات، ولا تتبّع.</li>
+      <li>لا خدمات أو مكتبات من أطراف ثالثة تتلقى بيانات.</li>
+    </ul>
+
+    <h2>تحكمك ببياناتك</h2>
+    <p>يمكنك عرض كل بيانات «لصق» وتصديرها واستيرادها وحذفها من نافذة المكتبة في التطبيق (الإعدادات ← النسخ الاحتياطي). إزالة التطبيق تزيله من الجهاز، ويمكنك حذف مجلد البيانات المحلي يدوياً إن أردت إزالة كل أثر.</p>
+
+    <h2>الأطفال</h2>
+    <p>«لصق» أداة إنتاجية عامة، غير موجّهة للأطفال، ولا تجمع أي معلومات شخصية من أي شخص.</p>
+
+    <h2>التغييرات على هذه السياسة</h2>
+    <p>إن تغيّرت هذه السياسة يوماً فستُنشر النسخة الجديدة على هذا العنوان بتاريخ سريان جديد. ولأن «لصق» لا يجمع أي بيانات، فإن أي تغيير لن يتعدى توضيح الصياغة.</p>
+
+    <h2>التواصل</h2>
+    <p>المطوّر: أ.د. هاني محسن · <a href="mailto:haymohsen@gmail.com" dir="ltr">haymohsen@gmail.com</a></p>
+  </section>
+</main>
+</body>
+</html>
